@@ -1,0 +1,16 @@
+services:
+
+  postgres:
+    image: pgvector/pgvector:pg16
+    container_name: eka-postgres
+    environment:
+      POSTGRES_DB: knowledge_assistant
+      POSTGRES_USER: eka_user
+      POSTGRES_PASSWORD: eka_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
