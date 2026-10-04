@@ -7,6 +7,7 @@ from alembic import context
 from app.core.config import settings
 from app.db.database import Base
 from app.models import User
+from sqlalchemy import text
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
@@ -71,6 +72,10 @@ def run_migrations_online() -> None:
     )
 
     with connectable.connect() as connection:
+
+        connection.execute(text("CREATE EXTENSION IF NOT EXISTS vector"))
+        connection.commit()
+        
         context.configure(
             connection=connection, target_metadata=target_metadata
         )

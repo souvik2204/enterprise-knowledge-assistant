@@ -2,7 +2,7 @@ from datetime import datetime
 
 from sqlalchemy import DateTime, String
 from sqlalchemy.orm import Mapped, mapped_column
-
+from sqlalchemy.orm import relationship
 from app.db.database import Base
 
 
@@ -30,6 +30,10 @@ class User(Base):
         String(50),
         nullable=False,
         default="user",
+    )
+    
+    documents: Mapped[list["Document"]] = relationship(
+    back_populates="owner",
     )
 
     created_at: Mapped[datetime] = mapped_column(
