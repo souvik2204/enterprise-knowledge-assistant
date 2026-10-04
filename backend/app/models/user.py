@@ -31,7 +31,7 @@ class User(Base):
         nullable=False,
         default="user",
     )
-    
+
     documents: Mapped[list["Document"]] = relationship(
     back_populates="owner",
     )
@@ -40,4 +40,8 @@ class User(Base):
         DateTime,
         default=datetime.utcnow,
         nullable=False,
+    )
+
+    audit_logs: Mapped[list["AuditLog"]] = relationship(
+        back_populates="user",
     )

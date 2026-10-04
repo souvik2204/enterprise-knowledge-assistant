@@ -50,6 +50,7 @@ class Document(Base):
         default="internal",
     )
 
+
     created_by: Mapped[int] = mapped_column(
         ForeignKey("users.id", ondelete="RESTRICT"),
         nullable=False,
@@ -70,6 +71,11 @@ class Document(Base):
     )
 
     chunks: Mapped[list["DocumentChunk"]] = relationship(
+        back_populates="document",
+        cascade="all, delete-orphan",
+    )
+
+    permissions: Mapped[list["DocumentPermission"]] = relationship(
         back_populates="document",
         cascade="all, delete-orphan",
     )
